@@ -5,7 +5,7 @@ PREFIX = "!"
 OWNER_IDS = [138085743728787456, 108992296896196608]
 
 
-class Bot(BotBase):
+class Client(BotBase):
     def __init__(self):
         self.PREFIX = PREFIX
         self.ready = False
@@ -14,10 +14,8 @@ class Bot(BotBase):
 
         super().__init__(command_prefix=PREFIX, owner_ids=OWNER_IDS)
 
-    def run(self, version):
-        self.VERSION = version
-
-        with open("./lib/bot/token", "r", encoding="utf-8") as tf:
+    def run(self):
+        with open("token.txt", "r", encoding="utf-8") as tf:
             self.TOKEN = tf.read()
         print("Running bot...")
         super().run(self.TOKEN, reconnect=True)
@@ -26,17 +24,17 @@ class Bot(BotBase):
         print("Bot connected")
 
     async def on_disconnect(self):
-        print("bot disconnected")
+        print("Bot disconnected")
 
     async def on_ready(self):
         if not self.ready:
             self.ready = True
             self.guild = self.get_guild(806695612443131945)
         else:
-            print("bot reconnected")
+            print("Bot reconnected")
 
     async def on_message(self, message):
         pass
 
-
-bot = Bot()
+client = Client()
+client.run()
