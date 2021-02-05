@@ -1,23 +1,28 @@
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from discord.ext.commands import Bot as BotBase
-
-PREFIX = "!"
-OWNER_IDS = [138085743728787456, 108992296896196608]
+from discord.ext.commands import Bot
+from config import Config
 
 
-class Client(BotBase):
-    def __init__(self):
-        self.PREFIX = PREFIX
+class Client(Bot):
+    def __init__(self, config):
+        self.TOKEN = config.token,
+        self.prefix = config.prefix
+        self.owner_ids = config.owner_ids
+        self.guild = config.guild
+
         self.ready = False
-        self.guild = None
         self.scheduler = AsyncIOScheduler()
 
-        super().__init__(command_prefix=PREFIX, owner_ids=OWNER_IDS)
+        super().__init__(command_prefix=config.prefix, owner_ids=config.owner_ids)
 
     def run(self):
-        with open("token.txt", "r", encoding="utf-8") as tf:
-            self.TOKEN = tf.read()
-        print("Running bot...")
+        print("Running bot with the following setings:")
+        print("Prefix: " + self.prefix)
+        print("Owner IDs: " + ", ".join(self.owner_ids))
+        print("Guild: " + self.guild)
+        print("--------------------")
+
+        self.TOKEN = config.token
         super().run(self.TOKEN, reconnect=True)
 
     async def on_connect(self):
@@ -29,12 +34,19 @@ class Client(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.ready = True
-            self.guild = self.get_guild(806695612443131945)
         else:
             print("Bot reconnected")
 
     async def on_message(self, message):
         pass
 
-client = Client()
-client.run()
+
+config = Config("config.txt")
+config.setup_config()
+
+if config.token is not None:
+    client = Client(config)
+    client.run()
+else:
+    print("Something went wrong with config parsing. Exiting...")
+    exit(1)

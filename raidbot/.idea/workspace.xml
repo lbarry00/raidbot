@@ -1,35 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f193d243-c810-4c1a-b6c9-37e7ac777d08" name="Default Changelist" comment="" />
-    <list id="a6cb0a8e-ddac-4654-a69a-a72a21b71e43" name="Fixed VCS stuff" comment="Fixed version control and project setup">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/raidbot.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/raidbot.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/Activate.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/activate" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/activate.csh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/activate.fish" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/chardetect" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/pip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/pip3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/pip3.8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python3" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/python3.8" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib64" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pyvenv.cfg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/__init__.py" afterDir="false" />
+    <list default="true" id="f193d243-c810-4c1a-b6c9-37e7ac777d08" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/bot/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/__init__.py" afterDir="false" />
     </list>
+    <list id="a6cb0a8e-ddac-4654-a69a-a72a21b71e43" name="Fixed VCS stuff" comment="Fixed version control and project setup" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +33,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/bot/__init__.py" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
@@ -118,8 +96,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1612499931641</updated>
-      <workItem from="1612499935801" duration="1556000" />
+      <workItem from="1612499935801" duration="7629000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed version control and project setup">
+      <created>1612501595835</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1612501595835</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -136,18 +122,27 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed version control and project setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed version control and project setup" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/bot/config.py</url>
+          <line>48</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/bot/__init__.py</url>
-          <line>8</line>
-          <option name="timeStamp" value="1" />
+          <line>25</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/raidbot$Launch_bot.coverage" NAME="Launch bot Coverage Results" MODIFIED="1612500880376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/bot" />
+    <SUITE FILE_PATH="coverage/raidbot$Launch_bot.coverage" NAME="Launch bot Coverage Results" MODIFIED="1612511660321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/bot" />
   </component>
 </project>
