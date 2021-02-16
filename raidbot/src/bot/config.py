@@ -46,4 +46,4 @@ class Config:
         elif len(parsed_value_array) > 1:
             return parsed_value_array
         else:
-            return str(parsed[1])
+            return str(parsed[1]).rstrip()

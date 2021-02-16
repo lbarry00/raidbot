@@ -16,7 +16,7 @@ class Client(Bot):
         super().__init__(command_prefix=config.prefix, owner_ids=config.owner_ids)
 
     def run(self):
-        print("Running bot with the following setings:")
+        print("Running bot with the following settings:")
         print("Prefix: " + self.prefix)
         print("Owner IDs: " + ", ".join(self.owner_ids))
         print("Guild: " + self.guild)
@@ -38,7 +38,7 @@ class Client(Bot):
             print("Bot reconnected")
 
     async def on_message(self, message):
-        pass
+        await self.process_commands(message)
 
 
 config = Config("config.txt")
@@ -46,6 +46,7 @@ config.setup_config()
 
 if config.token is not None:
     client = Client(config)
+    client.load_extension('commands')
     client.run()
 else:
     print("Something went wrong with config parsing. Exiting...")
