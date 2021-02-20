@@ -41,16 +41,3 @@ class Config:
             print("Config file improperly formatted.")
             print(e)
             exit(1)
-
-    def __parse_config_line(self, line, property_name):
-        parsed = line.split("=")
-        parsed_value_array = parsed[1].split(",")  # allow for comma-separated values (such as owner ids)
-
-        if len(parsed) != 2:
-            raise ValueError
-        elif parsed[0] != property_name:
-            raise ValueError
-        elif len(parsed_value_array) > 1:
-            return parsed_value_array
-        else:
-            return str(parsed[1])
