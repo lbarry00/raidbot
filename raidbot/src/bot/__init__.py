@@ -41,7 +41,7 @@ class Client(Bot):
         pass
 
 
-config = Config("config.txt")
+config = Config("config.json")
 config.setup_config()
 
 if config.token is not None:
