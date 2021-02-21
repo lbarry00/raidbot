@@ -2,4 +2,4 @@
 /raidbot/lib/
 /raidbot/src/bot/__pycache__/
 
-raidbot/src/bot/config.txt
+raidbot/src/bot/config.json

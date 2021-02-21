@@ -1,13 +1,7 @@
-class Config:
+import json
 
-    def __init__(self):
-        self.token = None
-        self.prefix = None
-        self.version = None
-        self.owner_ids = []
-        self.guild = None
 
-        self.config_file = None
+class BotConfig:
 
     def __init__(self, config_file):
         self.token = None
@@ -17,33 +11,28 @@ class Config:
         self.guild = None
 
         self.config_file = config_file
+        self.event_data = None
 
-    def setup_config(self):
+    def parse_and_setup(self):
         if self.config_file is None:
-            print("Config file not set.")
+            print("Bot Config file not set.")
             exit(1)
 
         try:
-            with open(self.config_file , "r", encoding="utf-8") as tf:
-                self.token = self.__parse_config_line(tf.readline(), "token")
-                self.prefix = self.__parse_config_line(tf.readline(), "prefix")
-                self.version = self.__parse_config_line(tf.readline(), "version")
-                self.owner_ids = self.__parse_config_line(tf.readline(), "owner_ids")
-                self.guild = self.__parse_config_line(tf.readline(), "guild")
+            with open(self.config_file, "r", encoding="utf-8") as tf:
+                data = json.load(tf)
+
+                self.token = data["token"]
+                self.prefix = data["prefix"].rstrip()
+                self.version = data["version"]
+                self.owner_ids = data["owner_ids"]
+                self.guild = data["guild"]
+
         except FileNotFoundError:
-            print("Config file " + self.config_file  + " could not be found.")
-        except ValueError:
-            print("Config file improperly formatted.")
+            print("Bot Config file " + self.config_file  + " could not be found.")
+            exit(1)
 
-    def __parse_config_line(self, line, property_name):
-        parsed = line.split("=")
-        parsed_value_array = parsed[1].split(",")  # allow for comma-separated values (such as owner ids)
-
-        if len(parsed) != 2:
-            raise ValueError
-        elif parsed[0] != property_name:
-            raise ValueError
-        elif len(parsed_value_array) > 1:
-            return parsed_value_array
-        else:
-            return str(parsed[1]).rstrip()
+        except KeyError as e:
+            print("Bot Config file improperly formatted.")
+            print(e)
+            exit(1)
