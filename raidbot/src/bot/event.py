@@ -9,9 +9,9 @@ class Event:
     type: str
     start_date: datetime
     start_time: datetime
-    accepted_players: str
-    tentative_players: str
-    declined_players: str
+    accepted_players: []
+    tentative_players: []
+    declined_players: []
 
     def __init__(self, activity_short_name):
         event_data = EventData("config.json")
@@ -21,6 +21,6 @@ class Event:
         self.player_count = event_info["player_count"]
         self.activity = event_info["long_name"]
         self.type = event_info["type"]
-        self.accepted_players = ""
-        self.declined_players = ""
-        self.tentative_players = ""
+        self.accepted_players = []
+        self.declined_players = []
+        self.tentative_players = []
