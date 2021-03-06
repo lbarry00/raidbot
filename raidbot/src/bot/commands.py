@@ -12,7 +12,7 @@ green_check_mark, red_x, question_mark = "✅", "❌", "❓"
 # List of emojis
 lfg_reactions = [green_check_mark, red_x, question_mark]
 # List of events to check for
-game_events_list = ["dsc", "lw", "gos", "trials", "comp"]
+game_events_list = ["ce", "dsc", "gos", "kf", "lw", "vog", "wotm", "comp", "ib", "trials"]
 # Class dict of events
 events = {}
 
@@ -59,7 +59,6 @@ class Commands(Cog):
                 await message.remove_reaction(payload.emoji, payload.member)
 
             elif not payload.member.bot and payload.emoji.name in lfg_reactions:
-                reaction = payload.emoji
                 await self.deletePreviousReaction(payload, message)
                 await self.updateLists(payload, message, True)
 
@@ -75,7 +74,6 @@ class Commands(Cog):
 
     async def updateLists(self, payload, message, add_remove):
         """Update the event objects lists of players depending on reaction choice, then update the embed"""
-        reaction = payload.emoji.name
         event = events[message.id]
         # for remove methods, no member passed, instantiating member from payload
         member = await message.guild.fetch_member(payload.user_id)
