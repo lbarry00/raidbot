@@ -1,5 +1,5 @@
-from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot
+
 from config import BotConfig
 from event_data import EventData
 
@@ -12,7 +12,6 @@ class Client(Bot):
         self.guild = config.guild
 
         self.ready = False
-        self.scheduler = AsyncIOScheduler()
 
         super().__init__(command_prefix=config.prefix, owner_ids=config.owner_ids)
 
@@ -47,8 +46,6 @@ config.parse_and_setup()
 
 event_data = EventData("config.json")
 event_data.parse_and_setup()
-
-print(event_data.check_event_exists("dsc"))
 
 if config.token is not None:
     client = Client(config)

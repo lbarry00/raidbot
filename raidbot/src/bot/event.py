@@ -7,6 +7,7 @@ class Event:
     player_count: int
     activity: str
     type: str
+    id: str
     start_date: datetime
     start_time: datetime
     accepted_players: []

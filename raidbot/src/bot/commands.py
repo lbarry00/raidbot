@@ -24,10 +24,6 @@ class Commands(Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @Cog.listener()
-    async def on_ready(self):
-        self.bot.get_channel(807731959400366142)
-
     @command(
         name="lfg",
         help="Schedule a raid using the above format. \n\n" +
@@ -47,18 +43,31 @@ class Commands(Cog):
             if new_time:
                 # instantiate event, then use for embed fields
                 new_event = Event(activity_short_name)
-                embed = Embed(title=new_event.activity, timestamp=new_time, color=0x8000ff)
+                # setup initial event embed to be edited, because we need message id set first.
+                embed = Embed(title=new_event.activity,
+                              description="",
+                              timestamp=new_time,
+                              color=0x8000ff)
+                message = await ctx.send(embed=embed)
+                new_event.id = message.id
+                embed = Embed(title=new_event.activity,
+                              description="Reminder ID = " + str(new_event.id),
+                              timestamp=new_time,
+                              color=0x8000ff)
                 embed.add_field(name="Players Needed ", value=str(new_event.player_count), inline=False)
                 embed.add_field(name="Accepted players " + green_check_mark, value=chr(173), inline=False)
                 embed.add_field(name="Declined players " + red_x, value=chr(173), inline=False)
                 embed.add_field(name="Tentative players " + question_mark, value=chr(173), inline=False)
-                message = await ctx.send(embed=embed)
-
+                await message.edit(embed=embed)
+                # append reactions to message
                 for emoji in lfg_reactions[:len(lfg_reactions)]:
                     await message.add_reaction(emoji)
-
+                # pin the message
+                # TODO: uncomment this once event listener is in place to remove pin once complete await message.pin()
+                new_event.start_time = new_time
                 # add to dict with key: message.id, val: event
-                events[message.id] = new_event
+                events[new_event.id] = new_event
+
         else:
             await ctx.send("Unrecognized activity in lfg command. Please use " + str(game_events_list))
 
@@ -68,6 +77,33 @@ class Commands(Cog):
             await ctx.send("Invalid argument detected. Use !help <command> to see proper format.")
         else:
             raise error
+
+    @command(name="remind", help="Remind tentative or accepted members about an event")
+    async def remind(self, ctx, event_id: str):
+        # clean input
+        clean_event_id = event_id.strip()
+        int_event_id = int(clean_event_id)
+        # get event
+        if int_event_id in events:
+            event = events[int_event_id]
+            participants = event.accepted_players + event.tentative_players
+            if len(participants) == 0:
+                await ctx.send(
+                    ctx.message.author.mention + " there is no one planned to run " + event.activity +
+                    " later. See if someone wants to join!")
+
+            if len(participants) == 1 and ctx.message.author.name in participants:
+                await ctx.send(
+                    ctx.message.author.mention + " you are the only one planning to run " + event.activity +
+                    " later. See if someone wants to join!")
+
+            else:
+                list_as_string = " ".join(f"{player}" for player in participants)
+                await ctx.send(
+                    ctx.message.author.mention + " is reminding " + list_as_string + " about running " +
+                    event.activity + " later!")
+        else:
+            await ctx.send("Invalid id, please retry")
 
     @Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -122,7 +158,8 @@ class Commands(Cog):
         declined_string = await self.process_list(event.declined_players)
         tentative_string = await self.process_list(event.tentative_players)
 
-        embed = Embed(title=event.activity, description="Updated description", color=0x8000ff)
+        embed = Embed(title=event.activity, description="Reminder ID = " + str(event.id), timestamp=event.start_time,
+                      color=0x8000ff)
         embed.add_field(name="Players Needed ", value=str(event.player_count), inline=False)
         embed.add_field(name="Accepted Players " + green_check_mark, value=accepted_string, inline=False)
         embed.add_field(name="Declined players " + red_x, value=declined_string, inline=False)
@@ -177,10 +214,6 @@ class Commands(Cog):
 
         time = time.astimezone(pytz.UTC)
         return time
-
-    async def print_message(self):
-        channel = self.bot.get_channel(807731959400366142)
-        await channel.send("Message test!")
 
 
 def setup(bot):
