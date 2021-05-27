@@ -1,6 +1,6 @@
 import datetime
 
-from event_data import EventData
+from EventData import EventData
 
 
 class Event:
@@ -15,7 +15,7 @@ class Event:
     declined_players: []
 
     def __init__(self, activity_short_name):
-        event_data = EventData("config.json")
+        event_data = EventData("config/config.json")
         event_data.parse_and_setup()
         event_info = event_data.get_single_event(activity_short_name)
         # initialize event variables

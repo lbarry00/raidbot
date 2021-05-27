@@ -1,7 +1,7 @@
 from discord.ext.commands import Bot
 
-from config import BotConfig
-from event_data import EventData
+from raidbot.src.bot.config.BotConfig import BotConfig
+from EventData import EventData
 
 
 class Client(Bot):
@@ -41,15 +41,15 @@ class Client(Bot):
         await self.process_commands(message)
 
 
-config = BotConfig("config.json")
+config = BotConfig("config/config.json")
 config.parse_and_setup()
 
-event_data = EventData("config.json")
+event_data = EventData("config/config.json")
 event_data.parse_and_setup()
 
 if config.token is not None:
     client = Client(config)
-    client.load_extension('commands')
+    client.load_extension('cogs.Commands')
     client.run()
 else:
     print("Something went wrong with config parsing. Exiting...")
