@@ -29,7 +29,7 @@ class BotConfig:
                 self.guild = data["guild"]
 
         except FileNotFoundError:
-            print("Bot Config file " + self.config_file  + " could not be found.")
+            print("Bot Config file " + self.config_file + " could not be found.")
             exit(1)
 
         except KeyError as e:

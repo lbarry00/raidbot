@@ -3,3 +3,5 @@
 /raidbot/src/bot/__pycache__/
 
 raidbot/src/bot/config/config.json
+
+raidbot/src/event/events.json

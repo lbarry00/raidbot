@@ -3,7 +3,7 @@ from datetime import datetime
 from discord import Embed
 from discord.ext.commands import Cog, command, MissingRequiredArgument
 
-from raidbot.src.bot.Event import Event
+from raidbot.src.event.Event import Event
 from raidbot.src.bot.util.HelperMethods import HelperMethods
 
 # Unicode for emojis to use in lfg command
@@ -14,7 +14,8 @@ lfg_reactions = [green_check_mark, red_x, question_mark]
 game_events_list = ["ce", "dsc", "gos", "kf", "lw", "vog", "wotm", "comp", "ib", "trials", "nf"]
 # List of events with full names
 game_events_list_long = ["Crota's End", "Deep Stone Crypt", "Garden of Salvation", "Kings Fall", "Last Wish",
-                         "Vault of Glass", "Wrath of the Machine", "Competitive", "Iron Banner", "Trials of Osiris", "Nightfalls"]
+                         "Vault of Glass", "Wrath of the Machine", "Competitive", "Iron Banner", "Trials of Osiris",
+                         "Nightfalls"]
 # Class dict of events
 events = {}
 
@@ -66,6 +67,8 @@ class Commands(Cog):
                 new_event.start_time = new_time
                 # add to dict with key: message.id, val: event
                 events[new_event.id] = new_event
+                # send to json backup
+                Event.backup_events(new_event)
 
         else:
             await ctx.send("Unrecognized activity in lfg command. Please use " + str(game_events_list))

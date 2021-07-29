@@ -1,7 +1,7 @@
 from discord.ext.commands import Bot
 
 from raidbot.src.bot.config.BotConfig import BotConfig
-from EventData import EventData
+from raidbot.src.event.EventData import EventData
 
 
 class Client(Bot):
